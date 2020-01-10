@@ -41,10 +41,12 @@ namespace SortArray
 
         private int[] ProcessArray(int[] sourceArray, int minValue)
         {
-            var result = sourceArray.Where(x => x > minValue).ToArray();
-            Array.Sort(result, new Comparison<int>(
-                (x1, x2) => x2.CompareTo(x1)
-            ));
+            var query = from item in sourceArray
+                        where item > minValue
+                        orderby item descending
+                        select item;
+
+            var result = query.ToArray();
 
             return result;
         }
